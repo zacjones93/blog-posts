@@ -1,28 +1,43 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, { useState, useReducer } from 'react';
 import './App.css';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
-}
+function App(){
+  const [userInput, setUserInput] = useReducer(
+    (state, newState) => ({...state, ...newState}),
+    {
+    firstName: '',
+    lastName: '',
+    phoneNumber: '',
+    }
+  );
 
+  const handleChange = evt => {
+    const { name, value} = evt.target;
+
+    setUserInput({[name]: value});
+  }
+
+  return (
+    <div>
+     
+     <br/>
+     <label>First Name: </label>
+     {userInput.firstName}
+     <br/>
+     <input type="text" name="firstName" value={userInput.firstName} onChange={handleChange}/>
+     
+     <br/>
+     <label>Last Name: </label>
+     {userInput.lastName}
+     <br/>
+     <input type="text" name="lastName" value={userInput.lastName} onChange={handleChange}/>
+     
+     <br/>
+     <label>Phone Number: </label>
+     {userInput.phoneNumber}
+     <br/>
+     <input type="text" name="phoneNumber" value={userInput.phoneNumber} onChange={handleChange}/>
+    </div>
+  )
+}
 export default App;
